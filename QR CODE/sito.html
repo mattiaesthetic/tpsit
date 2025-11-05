@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Genera Codice QR</title>
+    <!-- inclusione della libreria QrCodeJS da cdnjs.com-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js">
+
+    </script>
+</head>
+<body>
+<div id="printable">
+    <p>
+        Codice QR Generato<br>
+        utilizzando l'url di un sito come stringa<br>
+        per la generazione del codice.
+    </p>
+    <div id="qrcode"></div>
+</div>
+<BR>
+<button id="qrprint">STAMPA</button>
+
+<!--
+   CREA GLI EVENTI PER GENERARE E STAMPARE IL CODICE QR
+   IN FASE DI CARICAMENTO DELLA PAGINA HTML
+-->
+<script>
+    window.addEventListener("load", function()//crea un evento load sulla finestra
+    {
+        // CREA IL CODICE QR
+        var qrc = new QRCode(document.getElementById("qrcode"), //crea un oggetto QRCode sulla base della classe contenuta nella libreria, nella div qrcode
+            {
+                text: "https://www.itisrossi.edu.it//",
+                width: 200,
+                height: 200,
+                colorDark: "#000000"
+            });
+
+        // STAMPA IL CODICE QR
+        document.getElementById("qrprint").addEventListener("click", function()//crea un evento click sul bottone
+        {
+            var printwin = window.open("");//apre una finestra vuota
+            printwin.document.write(document.getElementById("printable").innerHTML);//scrive nella finestra vuota il contenuto della div printable
+            printwin.stop();//interrompe il caricamento della pagina
+            let qr = printwin.document.querySelector("#qrcode img");//seleziona l'immagine del codice qr
+            qr.addEventListener("load", function()//crea un evento load sull'immagine del codice qr
+            {
+                printwin.print();//stampa la finestra
+                printwin.close();//chiude la finestra
+            });
+        });
+    });
+</script>
+</body>
+</html>
