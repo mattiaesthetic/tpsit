@@ -2,7 +2,6 @@
 <html>
 <head>
     <title>Genera Codice QR</title>
-    <!-- inclusione della libreria QrCodeJS da cdnjs.com-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js">
 
     </script>
@@ -19,15 +18,10 @@
 <BR>
 <button id="qrprint">STAMPA</button>
 
-<!--
-   CREA GLI EVENTI PER GENERARE E STAMPARE IL CODICE QR
-   IN FASE DI CARICAMENTO DELLA PAGINA HTML
--->
 <script>
-    window.addEventListener("load", function()//crea un evento load sulla finestra
+    window.addEventListener("load", function()
     {
-        // CREA IL CODICE QR
-        var qrc = new QRCode(document.getElementById("qrcode"), //crea un oggetto QRCode sulla base della classe contenuta nella libreria, nella div qrcode
+        var qrc = new QRCode(document.getElementById("qrcode"),
             {
                 text: "mailto:14529892@itisrossi.vi.it?subject=prova&body=ciao%20ciao",
                 width: 200,
@@ -35,17 +29,16 @@
                 colorDark: "#000000"
             });
 
-        // STAMPA IL CODICE QR
-        document.getElementById("qrprint").addEventListener("click", function()//crea un evento click sul bottone
+        document.getElementById("qrprint").addEventListener("click", function()
         {
-            var printwin = window.open("");//apre una finestra vuota
-            printwin.document.write(document.getElementById("printable").innerHTML);//scrive nella finestra vuota il contenuto della div printable
-            printwin.stop();//interrompe il caricamento della pagina
-            let qr = printwin.document.querySelector("#qrcode img");//seleziona l'immagine del codice qr
-            qr.addEventListener("load", function()//crea un evento load sull'immagine del codice qr
+            var printwin = window.open("");
+            printwin.document.write(document.getElementById("printable").innerHTML);
+            printwin.stop();
+            let qr = printwin.document.querySelector("#qrcode img");
+            qr.addEventListener("load", function()
             {
-                printwin.print();//stampa la finestra
-                printwin.close();//chiude la finestra
+                printwin.print();
+                printwin.close();
             });
         });
     });
